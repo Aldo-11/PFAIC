@@ -8,14 +8,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Construir Imagen Docker
-        # Aquí definimos el nombre 'monitor-pyme:v1'
-        run: docker build -t monitor-pyme:v1 .
+        run: docker build -t monitor-pyme:latest .
 
       - name: Escaneo de Seguridad (Trivy)
         uses: aquasecurity/trivy-action@master
         with:
-          # Aquí usamos EXACTAMENTE el mismo nombre
-          image-ref: 'monitor-pyme:v1'
+          image-ref: 'monitor-pyme:latest'
           format: 'table'
-          exit-code: '0' # Cámbialo a '0' para que el pipeline no falle si encuentra riesgos y puedas ver el reporte
+          exit-code: '0' # Esto evita que el pipeline falle y te permite ver los resultados
           severity: 'CRITICAL,HIGH'
