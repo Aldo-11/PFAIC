@@ -1,0 +1,25 @@
+name: "Seguridad Proactiva DIMAZ"
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  analisis:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+    - name: Descargar código
+      uses: actions/checkout@v3
+
+    - name: Inicializar CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: python
+
+    - name: Ejecutar Análisis de Seguridad
+      uses: github/codeql-action/analyze@v2
